@@ -1,0 +1,88 @@
+{
+  "name": "vscode-neovim-registers",
+  "displayName": "VSCode Neovim Registers",
+  "description": "A register manager for VSCode Neovim much like 'registers.nvim' regular Neovim extension.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Neovim Registers",
+      "properties": {
+        "vscode-neovim-registers.hideOnPick": {
+          "type": "boolean",
+          "default": true,
+          "title": "Neovim Registers: Hide On Pick",
+          "markdownDescription": "Indicates whether the QuickPick menu should close when a register is selected (default: true)"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "vscode-neovim-registers.toggleHide",
+        "title": "Neovim Registers: Toggle Hide on QuickPick Selection"
+      },
+      {
+        "command": "vscode-neovim-registers.showRegisters",
+        "title": "Neovim Registers: Show Registers (Quickpick)"
+      }, 
+      {
+        "command": "vscode-neovim-registers.showRegistersInline",
+        "title": "Neovim Registers: Show Registers (Inline)"
+      },
+      {
+        "command": "vscode-neovim-registers.selectRegisterInline",
+        "title": "Neovim Registers: Show Registers (Inline)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vscode-neovim-registers.showRegisters",
+        "key": "shift+'",
+        "when": "neovim.init && neovim.mode == normal && editorTextFocus",
+        "args": "\""
+      },
+      {
+        "command": "vscode-neovim-registers.showRegistersInline",
+        "key": "shift+'",
+        "when": "neovim.init && (neovim.mode == visual || neovim.mode == select) && editorTextFocus",
+        "args": "\""
+      },
+      {
+        "command": "vscode-neovim-registers.selectRegistersInline",
+        "key": "enter",
+        "when": "neovim.init && neovim.mode == normal && editorTextFocus",
+        "args": "<CR>"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.87.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "extensionDependencies": ["asvetliakov.vscode-neovim"],
+  "dependencies": {
+    "neovim": "^5.0.1"
+  }
+}
